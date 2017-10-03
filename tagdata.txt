@@ -5,3 +5,9 @@ Pescetarian
 Omnivore
 Paleo
 GlutenFree
+Breakfast
+Lunch
+Dinner
+Dessert
+Brunch
+Drinks
