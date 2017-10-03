@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
 from model import Recipe, Rating, Tag, User, connect_to_db, db
 from flask_debugtoolbar import DebugToolbarExtension
+import random
 
 app = Flask(__name__)
 
@@ -11,6 +12,16 @@ app.secret_key = "jessisthebest"
 @app.route('/')
 def showbutton():
     return render_template('showbutton.html')
+
+@app.route('/recipes')
+def recipe_options():
+
+    recipes = Recipe.query.all()
+
+    recipe1, recipe2, recipe3 = random.sample(recipes, 3)
+
+    return render_template('threerecipes.html', recipe1=recipe1,
+                            recipe2=recipe2, recipe3=recipe3)
 
 
 # @app.route('/login')
