@@ -1,0 +1,7 @@
+Vegan
+StrictVegetarian
+Vegetarian
+Pescetarian
+Omnivore
+Paleo
+GlutenFree
