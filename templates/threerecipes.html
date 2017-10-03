@@ -4,13 +4,25 @@
 <div class="container"> 
 <row> 
     <div class="col-lg-4">
-        <p>{{ recipe1 }}</p>
+        <h1>{{ recipe1.recipe_title }}</h1>
+        <h3>{{ recipe1.recipe_source }}</h3>
+        <p>{{ recipe1.recipe_ingredients }}</p>
+        <p>{{ recipe1.recipe_directions }}</p>
     </div>
     <div class="col-lg-4">
-        <p>{{ recipe2 }}</p>
+        <h1>{{ recipe2.recipe_title }}</h1>
+        <h3>{{ recipe2.recipe_source }}</h3>
+        <p>{{ recipe2.recipe_ingredients }}</p>
+        <p>{{ recipe2.recipe_directions }}</p>
     </div>
     <div class="col-lg-4">
-        <p>{{ recipe3 }}</p>
+        <h1>{{ recipe3.recipe_title }}</h1>
+        <h3>{{ recipe3.recipe_source }}</h3>
+        <p>{{ recipe3.recipe_ingredients }}</p>
+        {% for direction in directions3 %}
+            <p> {{ direction }} </p><br>
+        {% endfor %}
+        <!-- <p>{{ recipe3.recipe_directions }}</p><br> -->
     </div>
 </row>
 </div>

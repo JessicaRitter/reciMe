@@ -14,6 +14,12 @@ class Recipe(db.Model):
     recipe_ingredients = db.Column(db.TEXT, nullable=False)
     recipe_directions = db.Column(db.TEXT)
 
+    def __repr__(self):
+        """show helpful parts of recipe object"""
+        return "<Recipe recipe_title=%s recipe_source=%s recipe_ingredients=%s recipe_directions=%s>" % (self.recipe_title,
+                                               self.recipe_source, self.recipe_ingredients, self.recipe_directions)
+
+
 class TagRecipes(db.Model):
     """tag recipe association table"""
     __tablename__ = "tagrecipes"
