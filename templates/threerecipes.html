@@ -7,13 +7,17 @@
         <h1>{{ recipe1.recipe_title }}</h1>
         <h3>{{ recipe1.recipe_source }}</h3>
         <p>{{ recipe1.recipe_ingredients }}</p>
-        <p>{{ recipe1.recipe_directions }}</p>
+        {% for direction in directions1 %}
+            <p> {{ direction }} </p><br>
+        {% endfor %}
     </div>
     <div class="col-lg-4">
         <h1>{{ recipe2.recipe_title }}</h1>
         <h3>{{ recipe2.recipe_source }}</h3>
         <p>{{ recipe2.recipe_ingredients }}</p>
-        <p>{{ recipe2.recipe_directions }}</p>
+        {% for direction in directions2 %}
+            <p> {{ direction }} </p><br>
+        {% endfor %}
     </div>
     <div class="col-lg-4">
         <h1>{{ recipe3.recipe_title }}</h1>
@@ -24,6 +28,13 @@
         {% endfor %}
         <!-- <p>{{ recipe3.recipe_directions }}</p><br> -->
     </div>
+</row>
+<row>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <button class="btn btn-primary"><a href="/recipes">Yuk, give me three new suggestions</a></button>
+    </div>
+    <div class="col-lg-4"></div>
 </row>
 </div>
 

@@ -20,16 +20,17 @@ def recipe_options():
 
     recipe1, recipe2, recipe3 = random.sample(recipes, 3)
 
-    nums = range(0,10)
-
     ingredients1 = recipe1.recipe_ingredients.split(" ")
 
-    print ingredients1
-
+    directions1 = recipe1.recipe_directions.split(".")
+    directions2 = recipe2.recipe_directions.split(".")
     directions3 = recipe3.recipe_directions.split(".")
 
     return render_template('threerecipes.html', recipe1=recipe1,
-                            recipe2=recipe2, recipe3=recipe3, directions3=directions3)
+                            recipe2=recipe2, recipe3=recipe3, 
+                            directions1=directions1,
+                            directions2=directions2,
+                            directions3=directions3)
 
 
 # @app.route('/login')
