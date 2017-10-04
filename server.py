@@ -32,6 +32,11 @@ def recipe_options():
                             directions2=directions2,
                             directions3=directions3)
 
+@app.route('/recipes/<recipe>')
+def show_recipe(recipe):
+    return render_template('recipe.html')
+
+
 
 # @app.route('/login')
 # def login():
