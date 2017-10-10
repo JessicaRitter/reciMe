@@ -4,28 +4,40 @@
 <div class="container"> 
 <row> 
     <div class="col-lg-4">
-        <h1>{{ recipe1.recipe_title }}</h1>
+        <h1><a href="/recipes{{ url1 }}">{{ recipe1.recipe_title }}</a></h1>
         <h3>{{ recipe1.recipe_source }}</h3>
-        <p>{{ recipe1.recipe_ingredients }}</p>
-        {% for direction in directions1 %}
-            <p> {{ direction }} </p><br>
-        {% endfor %}
+        <ul>
+            {% for ingredient in ingredients1 %}
+                {% if not loop.last %}
+                    <li>{{ ingredient }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+      
     </div>
     <div class="col-lg-4">
-        <h1>{{ recipe2.recipe_title }}</h1>
+        <h1><a href="/recipes{{ url2 }}">{{ recipe2.recipe_title }}</a></h1>
         <h3>{{ recipe2.recipe_source }}</h3>
-        <p>{{ recipe2.recipe_ingredients }}</p>
-        {% for direction in directions2 %}
-            <p> {{ direction }} </p><br>
-        {% endfor %}
+        <ul>
+            {% for ingredient in ingredients2 %}
+                {% if not loop.last %}
+                    <li>{{ ingredient }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+      
     </div>
     <div class="col-lg-4">
-        <h1>{{ recipe3.recipe_title }}</h1>
+        <h1><a href="/recipes{{ url3 }}">{{ recipe3.recipe_title }}</a></h1>
         <h3>{{ recipe3.recipe_source }}</h3>
-        <p>{{ recipe3.recipe_ingredients }}</p>
-        {% for direction in directions3 %}
-            <p> {{ direction }} </p><br>
-        {% endfor %}
+        <ul>
+            {% for ingredient in ingredients3 %}
+                {% if not loop.last %}
+                    <li>{{ ingredient }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    
         <!-- <p>{{ recipe3.recipe_directions }}</p><br> -->
     </div>
 </row>

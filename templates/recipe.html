@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <h2>Ingredients</h2>
+            {% for ingredient in recipe_ingredients %}
+                <ul>
+                    {% if not loop.last %}
+                    <li>{{ ingredient }}</li>
+                    {% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+        <div class="col-lg-5">
+            <h1>{{ recipe_title }}</h1>
+        
+            <ol>
+                {%for direction in recipe_directions %}
+                    {% if loop.first %}
+                        <li> {{ direction[22:]}} </li>
+                    {% elif not loop.last %}
+                        <li> {{ direction }} </li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col-lg-3"> 
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}

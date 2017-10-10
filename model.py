@@ -9,6 +9,7 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
 
     recipe_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    recipe_url = db.Column(db.String(600), nullable=False)
     recipe_title = db.Column(db.String(500), nullable=False)
     recipe_source = db.Column(db.String(128), nullable=True)
     recipe_ingredients = db.Column(db.TEXT, nullable=False)

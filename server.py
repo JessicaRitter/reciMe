@@ -20,21 +20,40 @@ def recipe_options():
 
     recipe1, recipe2, recipe3 = random.sample(recipes, 3)
 
-    ingredients1 = recipe1.recipe_ingredients.split(" ")
+    ingredients1 = recipe1.recipe_ingredients.split(",")
+    ingredients2 = recipe2.recipe_ingredients.split(",")
+    ingredients3 = recipe3.recipe_ingredients.split(",")
+
+    url1 = recipe1.recipe_url
+    url2 = recipe2.recipe_url
+    url3 = recipe3.recipe_url
+
+
 
     directions1 = recipe1.recipe_directions.split(".")
     directions2 = recipe2.recipe_directions.split(".")
     directions3 = recipe3.recipe_directions.split(".")
 
     return render_template('threerecipes.html', recipe1=recipe1,
-                            recipe2=recipe2, recipe3=recipe3, 
-                            directions1=directions1,
-                            directions2=directions2,
-                            directions3=directions3)
+                            recipe2=recipe2, recipe3=recipe3,
+                            ingredients1=ingredients1,
+                            ingredients2=ingredients2,
+                            ingredients3=ingredients3,
+                            url1=url1, url2=url2,url3=url3)
 
-@app.route('/recipes/<recipe>')
-def show_recipe(recipe):
-    return render_template('recipe.html')
+@app.route('/recipes/<recipe_url>')
+def show_recipe(recipe_url):
+    # print recipe_url
+    recipe_url = str("/" + recipe_url)
+    # print recipe_url
+    recipe_display = Recipe.query.filter_by(recipe_url = recipe_url).one()
+    recipe_title = recipe_display.recipe_title
+    recipe_ingredients = recipe_display.recipe_ingredients.split(",")
+    recipe_directions = recipe_display.recipe_directions.split(".")
+    
+    return render_template('recipe.html', recipe_title=recipe_title, 
+                            recipe_ingredients=recipe_ingredients,
+                            recipe_directions=recipe_directions)
 
 
 
