@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+       <div class="col-lg-6">
+        <ul>
+           {% for tag in tags %}
+                <li><a href="/{{tag.category}}/recipes"> {{ tag.category }}</a></li>
+            {% endfor %}
+        </ul>
+       </div>
+    </div>
+
+</div>
+
+{% endblock %}

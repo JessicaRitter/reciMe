@@ -56,6 +56,20 @@ def show_recipe(recipe_url):
                             recipe_directions=recipe_directions)
 
 
+@app.route('/tags')
+def show_tags():
+    tags = Tag.query.all()
+    
+
+    return render_template('tag.html', tags=tags)
+
+@app.route('/<category>/recipes')
+def show_taggedrecipes(category):
+    tag = Tag.query.filter_by(category = category).one()
+    recipes = tag.recipe
+    return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
+
+
 
 # @app.route('/login')
 # def login():

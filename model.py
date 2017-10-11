@@ -1,4 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 db = SQLAlchemy()
 
@@ -40,12 +44,9 @@ class Tag(db.Model):
 
     tag_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     category = db.Column(db.String(128), nullable=True)
-    # tagrecipe_id = db.Column(db.ForeignKey('tagrecipes.tagrecipe_id'))
-    # user_id = db.Column(db.ForeignKey('users.user_id'))
-
-    # rating = db.relationship("Rating",
-    #                    backref=db.backref("tags"))
-    # user = db.relationship("User", backref=db.backref("users"))
+    recipe = db.relationship("Recipe",
+                         secondary="tagrecipes",
+                         backref="tags")
 
 
 class RecipeRatings(db.Model):
