@@ -70,18 +70,60 @@ def show_taggedrecipes(category):
     return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
 
 
+@app.route('/signup', methods=["GET"])
+def show_signup():
+    return render_template('signup.html')
 
-# @app.route('/login')
-# def login():
-#     return render_template('login.html')
+@app.route('/signup', methods=["POST"])
+def signup():
 
-# @app.route('/logout')
-# def logout():
-#     return redirect('/')
+    name = request.form.get("name")
+    email = request.form.get("email")
+    password = request.form.get("Password")
 
-# @app.route('/<user>'):
-# def show_profile(user_id):
-#     return render_template('userprofile.htm')
+    user = User.query.filter(User.email == email).all()
+
+    if user:
+        flash("You're already signed up, please login.")
+    else:
+        user = User(name=name, email=email, password=password)
+        db.session.add(user)
+        db.session.commit()
+        flash("Thanks for signing up %d!") % name
+
+    return redirect("/login")
+
+
+@app.route('/login', methods=["GET"])
+def show_login():
+    if "user_email" in session:
+        flash("You're already logged in.")
+    return render_template('login.html')
+
+@app.route('/login', methods=["POST"])
+def login():
+    session["user_email"] = request.form.get("email")
+    flash("Logged in as "+session["user_email"])
+    user = User.query.filter(User.email == session["user_email"]).all()
+    user_id = user[0].user_id
+    session["user_id"] = user_id
+    return redirect('/%d' %user_id)
+
+@app.route('/logout')
+def logout():
+    if "user_email" in session:
+        del session["user_email"]
+        flash("Logout successful")
+    return redirect('/')
+
+@app.route('/<user_id>')
+def show_profile(user_id):
+    if "user_email" in session:
+        user = User.query.filter_by(user_id = user_id).first()
+        name = user.name
+        return render_template('userprofile.html', name=name)
+    else:
+        return redirect('/')
 
 
 

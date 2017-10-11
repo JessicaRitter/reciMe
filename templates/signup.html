@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+       <div class="col-lg-6">
+        <h1>Signup</h1>
+        <form action="/signup" method="POST">
+            <p>Name:</p>
+            <input type='text' name='name' id='name'></input>
+            <p>Email:</p>
+            <input type="text" name="email" id="email"></input>
+            <p>Password:</p>
+            <input type="Password" name="Password" id="Password"></input>
+            <p>Confirm Password:</p>
+            <input type="Password" name="Confirm Password" id="Confirm-Password"></input>
+            <input type="submit">            
+        </form>
+       </div>
+    </div>
+
+</div>
+
+{% endblock %}
