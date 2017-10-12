@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Dietary Restrictions</h1>
+    <form action="/add-dietary-restrictions" method="POST">
+            <input type="checkbox" name="restriction" value="Vegan">
+                 Vegan
+            </input><br>
+            <input type="checkbox" name="restriction" value="Vegetarian">
+                Vegetarian
+            </input><br>
+            <input type="checkbox" name="restriction" value="Pescaterian">
+                Pescaterian
+            </input><br>
+            <input type="checkbox" name="restriction" value="Gluten-Free">
+                Gluten-Free
+            </input><br>
+            <input type="checkbox" name="restriction" value="Omnivore">
+                Omnivore
+            </input><br>
+            
+            <input type="submit">            
+        </form>
+</div>
+{% endblock %}

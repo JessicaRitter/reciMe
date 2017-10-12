@@ -11,7 +11,12 @@ app.secret_key = "jessisthebest"
 
 @app.route('/')
 def showbutton():
-    return render_template('showbutton.html')
+    if "user_email" in session:
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).one()
+        return render_template('showbutton.html', user=user)
+    else:
+        return render_template('showbutton.html')
 
 @app.route('/recipes')
 def recipe_options():
@@ -34,12 +39,24 @@ def recipe_options():
     directions2 = recipe2.recipe_directions.split(".")
     directions3 = recipe3.recipe_directions.split(".")
 
-    return render_template('threerecipes.html', recipe1=recipe1,
-                            recipe2=recipe2, recipe3=recipe3,
-                            ingredients1=ingredients1,
-                            ingredients2=ingredients2,
-                            ingredients3=ingredients3,
-                            url1=url1, url2=url2,url3=url3)
+    if "user_email" in session:
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).one()
+        return render_template('threerecipes.html', recipe1=recipe1,
+                                recipe2=recipe2, recipe3=recipe3,
+                                ingredients1=ingredients1,
+                                ingredients2=ingredients2,
+                                ingredients3=ingredients3,
+                                url1=url1, url2=url2,url3=url3,
+                                user=user)
+    else:
+
+        return render_template('threerecipes.html', recipe1=recipe1,
+                                recipe2=recipe2, recipe3=recipe3,
+                                ingredients1=ingredients1,
+                                ingredients2=ingredients2,
+                                ingredients3=ingredients3,
+                                url1=url1, url2=url2,url3=url3)
 
 @app.route('/recipes/<recipe_url>')
 def show_recipe(recipe_url):
@@ -51,23 +68,40 @@ def show_recipe(recipe_url):
     recipe_ingredients = recipe_display.recipe_ingredients.split(",")
     recipe_directions = recipe_display.recipe_directions.split(".")
     
-    return render_template('recipe.html', recipe_title=recipe_title, 
+    if "user_email" in session:
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).one()
+        return render_template('recipe.html', recipe_title=recipe_title, 
                             recipe_ingredients=recipe_ingredients,
-                            recipe_directions=recipe_directions)
+                            recipe_directions=recipe_directions,
+                            user=user)
+    else:
+        return render_template('recipe.html', recipe_title=recipe_title, 
+                                recipe_ingredients=recipe_ingredients,
+                                recipe_directions=recipe_directions)
 
 
 @app.route('/tags')
 def show_tags():
     tags = Tag.query.all()
     
-
-    return render_template('tag.html', tags=tags)
+    if "user_email" in session:
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).one()
+        return render_template('tag.html', tags=tags, user=user)
+    else:    
+        return render_template('tag.html', tags=tags)
 
 @app.route('/<category>/recipes')
 def show_taggedrecipes(category):
     tag = Tag.query.filter_by(category = category).one()
     recipes = tag.recipe
-    return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
+    if "user_email" in session:
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).one()
+        return render_template('taggedrecipe.html', tag=tag, recipes=recipes, user=user)
+    else:
+        return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
 
 
 @app.route('/signup', methods=["GET"])
@@ -119,12 +153,34 @@ def logout():
 @app.route('/<user_id>')
 def show_profile(user_id):
     if "user_email" in session:
-        user = User.query.filter_by(user_id = user_id).first()
-        name = user.name
-        return render_template('userprofile.html', name=name)
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).first()
+        name = user.name            
+        return render_template('userprofile.html', name=name, user=user)
     else:
         return redirect('/')
 
+@app.route('/add-dietary-restrictions', methods=["GET"])
+def show_restrictions():
+    email = session["user_email"]
+    user = User.query.filter_by(email = email).one()
+    return render_template('restrictions.html', user=user)
+
+@app.route('/add-dietary-restrictions', methods=["POST"])
+def add_restrictions():
+    if request.method == "POST":
+        selected_restrictions = request.form.getlist("restriction")
+    restrictions = " "
+    for restriction in selected_restrictions:
+        restrictions += restriction + ","
+    email =session["user_email"]
+    print restrictions
+    user = User.query.filter_by(email=email).first()
+    user_id = user.user_id
+    user.restrictions = restrictions
+    db.session.commit()
+    
+    return redirect('/%d'% user_id)
 
 
 

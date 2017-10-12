@@ -2,6 +2,13 @@
 {% block content %}
 <div class="container">
     <h1>hello {{name}}</h1>
+    <div class="row">
+        <div class="col-lg-7">
+            <p> Your dietary restrictions: </p>
+            {{ user.restrictions }}
+            <button class="btn btn-primary"><a href="/add-dietary-restrictions">Click to change dietary restrictions</a></button>
+        </div>
+    </div>
 <button class="btn btn-primary"><a href="/logout">Logout</a></button>  
 </div>
 {%endblock%}

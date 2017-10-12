@@ -84,6 +84,7 @@ class User(db.Model):
     email = db.Column(db.String(80), nullable=True)
     name = db.Column(db.String(24), nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    restrictions = db.Column(db.String(60), nullable=True)
 
 
 
