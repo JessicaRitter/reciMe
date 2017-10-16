@@ -49,13 +49,13 @@ class Tag(db.Model):
                          backref="tags")
 
 
-class RecipeRatings(db.Model):
-    """Rating recipe association table"""
-    __tablename__ = "reciperatings"
+# class RecipeRatings(db.Model):
+#     """Rating recipe association table"""
+#     __tablename__ = "reciperatings"
 
-    reciperating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    recipe_id = db.Column(db.ForeignKey('recipes.recipe_id'))
-    rating_id = db.Column(db.ForeignKey('ratings.rating_id'))
+#     reciperating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     recipe_id = db.Column(db.ForeignKey('recipes.recipe_id'))
+#     rating_id = db.Column(db.ForeignKey('ratings.rating_id'))
 
 # a table of recipe ratings 
 
@@ -65,14 +65,18 @@ class Rating(db.Model):
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     rating_score = db.Column(db.Integer, nullable=True)
-
-class UserRatings(db.Model):
-    """An association table for ratings and users"""
-    __tablename__ = "userratings"
-
-    userrating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    recipe_id = db.Column(db.ForeignKey('recipes.recipe_id'))
     user_id = db.Column(db.ForeignKey('users.user_id'))
-    rating_id = db.Column(db.ForeignKey('ratings.rating_id'))
+    recipe = db.relationship("Recipe",backref="recipes")
+    user = db.relationship("User",backref="users")
+
+# class UserRatings(db.Model):
+#     """An association table for ratings and users"""
+#     __tablename__ = "userratings"
+
+#     userrating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     user_id = db.Column(db.ForeignKey('users.user_id'))
+#     rating_id = db.Column(db.ForeignKey('ratings.rating_id'))
 
 # a user table 
 

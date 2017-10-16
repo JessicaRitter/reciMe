@@ -74,11 +74,32 @@ def show_recipe(recipe_url):
         return render_template('recipe.html', recipe_title=recipe_title, 
                             recipe_ingredients=recipe_ingredients,
                             recipe_directions=recipe_directions,
-                            user=user)
+                            user=user, recipe_display=recipe_display)
     else:
         return render_template('recipe.html', recipe_title=recipe_title, 
                                 recipe_ingredients=recipe_ingredients,
                                 recipe_directions=recipe_directions)
+
+@app.route("/add-rating", methods=["POST"])
+def add_rating():
+    email = session["user_email"]
+    user = User.query.filter_by(email = email).one()
+    rating_score = request.form.get("score")
+    recipe_id = request.form.get("recipe")
+    recipe = Recipe.query.filter_by(recipe_id=recipe_id).one()
+
+    
+    rating = Rating.query.filter(Rating.user_id == user.user_id, Rating.recipe_id == recipe.recipe_id).first()
+    if rating:
+       rating.score = rating.rating_score
+    else:
+        rating = Rating(recipe_id=recipe.recipe_id, rating_score=rating_score, user_id=user.user_id)
+        db.session.add(rating)
+    db.session.commit()
+
+    flash("Your rating has been added!")
+
+    return redirect("/")
 
 
 @app.route('/tags')
