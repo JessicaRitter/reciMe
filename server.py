@@ -124,7 +124,6 @@ def show_taggedrecipes(category):
         user = User.query.filter_by(email = email).one()
         restrictions = user.restrictions.split(",")   
         first = restrictions[1] 
-        print first, "This is the restriction"
         tid = Tag.query.filter_by(category= first).one()
         more_recipes = tid.recipe
         with_restrictions = []
