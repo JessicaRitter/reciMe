@@ -18,6 +18,8 @@ class Recipe(db.Model):
     recipe_source = db.Column(db.String(128), nullable=True)
     recipe_ingredients = db.Column(db.TEXT, nullable=False)
     recipe_directions = db.Column(db.TEXT)
+    recipe_tags = db.relationship("Tag",
+                            secondary="tagrecipes", backref="recipes")
 
     def __repr__(self):
         """show helpful parts of recipe object"""
@@ -33,6 +35,12 @@ class TagRecipes(db.Model):
     # user_id = db.Column(db.ForeignKey('users.user_id'))
     tag_id = db.Column(db.ForeignKey('tags.tag_id'))
     recipe_id = db.Column(db.ForeignKey('recipes.recipe_id'))
+
+
+    def __repr__(self):
+        """show helpful parts of recipe object"""
+        return "<TagRecipe tagrecipe_id=%s recipe_id=%s tag_id=%s>" % (self.tagrecipe_id,
+                                               self.recipe_id, self.tag_id)
 
 
 

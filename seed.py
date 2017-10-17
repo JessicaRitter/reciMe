@@ -60,12 +60,11 @@ def load_recipe():
             recipe_url,recipe_title, recipe_source,recipe_ingredients, recipe_directions,tags = recipe.split("|")
             recipe = Recipe(recipe_url=recipe_url,recipe_title=recipe_title,recipe_source=recipe_source,
                             recipe_ingredients=recipe_ingredients,recipe_directions=recipe_directions)
+            pdb.set_trace()
         except:
             print recipe.split("|")
         # break
         db.session.add(recipe)
-
-        
     db.session.commit()
 
 def load_tagrecipe():
@@ -79,7 +78,7 @@ def load_tagrecipe():
         tags = tags.split(",")
         for tag in tags:
             tag_db = Tag.query.filter_by(category = tag).first()
-            # print recipe_db
+            # pdb.set_trace()
             recipe_id = recipe_db.recipe_id
             tag_id = tag_db.tag_id
             tagrecipe = TagRecipes(tag_id=tag_id, recipe_id=recipe_id)
@@ -103,8 +102,8 @@ if __name__ == "__main__":
     # db.create_all()
 
     # load_tags()
-
+# 
     # load_users()
     # Import dumpfile info
     # load_recipe()
-    # load_tagrecipe()
+    load_tagrecipe()

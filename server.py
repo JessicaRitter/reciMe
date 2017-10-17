@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, render_template, redirect, request, flash, session
-from model import Recipe, Rating, Tag, User, connect_to_db, db
+from model import Recipe, Rating, Tag, User, connect_to_db, db, TagRecipes
 from flask_debugtoolbar import DebugToolbarExtension
 import random
+from SQLAlchemy import and_
 
 app = Flask(__name__)
 
@@ -80,6 +81,7 @@ def show_recipe(recipe_url):
                                 recipe_ingredients=recipe_ingredients,
                                 recipe_directions=recipe_directions)
 
+
 @app.route("/add-rating", methods=["POST"])
 def add_rating():
     email = session["user_email"]
@@ -120,7 +122,22 @@ def show_taggedrecipes(category):
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
-        return render_template('taggedrecipe.html', tag=tag, recipes=recipes, user=user)
+        restrictions = user.restrictions.split(",")   
+        first = restrictions[1] 
+        print first, "This is the restriction"
+        tid = Tag.query.filter_by(category= first).one()
+        more_recipes = tid.recipe
+        with_restrictions = []
+        for recipe in more_recipes:
+            if recipe in recipes:
+                with_restrictions.append(recipe)
+
+                
+        # with_restrictions = db.session.query(Recipe).join(TagRecipes).filter(TagRecipes.recipe_id == Recipe.recipe_id).join(Tag).filter(tid.tag_id == TagRecipes.tag_id).filter((Tag.category == tag.category),and_(Tag.category == tid.category)).all()
+       
+
+        return render_template('taggedrecipe.html', tag=tag, recipes=recipes, user=user,
+                                restrictions=restrictions,rest_recipes=with_restrictions, more_recipes=more_recipes)
     else:
         return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
 
