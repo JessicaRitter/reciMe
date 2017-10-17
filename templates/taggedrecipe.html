@@ -6,10 +6,10 @@
         <div class="col-lg-3">
         </div>
         <div class="col-lg-5">
-            {% if rest_recipes %}
-            <h2>{{restrictions[0]}} {{ tag.category }} Recipes<h2>
+            {% if more_recipes %}
+            <h2>{{restrictions}} {{ tag.category }} Recipes<h2>
             <ul>
-                {% for recipe in rest_recipes %}
+                {% for recipe in more_recipes %}
                     <li><a href="/recipes{{recipe.recipe_url}}">{{ recipe.recipe_title }}</a></li>
                 {% endfor %}
             {% else %}

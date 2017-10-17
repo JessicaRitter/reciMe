@@ -119,24 +119,43 @@ def show_tags():
 def show_taggedrecipes(category):
     tag = Tag.query.filter_by(category = category).one()
     recipes = tag.recipe
+    def get_restriction_recipes(user):
+        restrictions = user.restrictions.split(",")
+        print restrictions[:-1]
+        with_restrictions = []
+        for restriction in restrictions[:-1]:
+            restriction = restriction.strip()
+            tid = Tag.query.filter_by(category= restriction).one()
+            recipes = tid.recipe 
+            for recipe in recipes:
+                with_restrictions.append(recipe.recipe_title)
+            # with_restrictions.append(recipes)
+        return with_restrictions
+
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
-        restrictions = user.restrictions.split(",")   
-        first = restrictions[1] 
-        tid = Tag.query.filter_by(category= first).one()
-        more_recipes = tid.recipe
-        with_restrictions = []
-        for recipe in more_recipes:
-            if recipe in recipes:
-                with_restrictions.append(recipe)
+        with_restrictions = get_restriction_recipes(user)
+        with_restrictions = set(with_restrictions)
+        recipes = set(recipes)
+        more_recipes = recipes & with_restrictions
+        restrictions = user.restrictions.split(",") 
+        # [gf, veg, dairy]  
+        # first = restrictions[1] 
+        # print first, "This is your restriction"
+        # tid = Tag.query.filter_by(category= first).one()
+        # more_recipes = tid.recipe
+        # with_restrictions = []
+        # for recipe in more_recipes:
+        #     if recipe in recipes:
+        #         with_restrictions.append(recipe)
 
                 
         # with_restrictions = db.session.query(Recipe).join(TagRecipes).filter(TagRecipes.recipe_id == Recipe.recipe_id).join(Tag).filter(tid.tag_id == TagRecipes.tag_id).filter((Tag.category == tag.category),and_(Tag.category == tid.category)).all()
        
 
         return render_template('taggedrecipe.html', tag=tag, recipes=recipes, user=user,
-                                restrictions=restrictions,rest_recipes=with_restrictions, more_recipes=more_recipes)
+                                restrictions=restrictions, more_recipes=more_recipes)
     else:
         return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
 
