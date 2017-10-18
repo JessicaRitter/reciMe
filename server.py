@@ -3,6 +3,8 @@ from model import Recipe, Rating, Tag, User, connect_to_db, db, TagRecipes
 from flask_debugtoolbar import DebugToolbarExtension
 import random
 from SQLAlchemy import and_
+import bcrypt
+
 
 app = Flask(__name__)
 
@@ -72,10 +74,12 @@ def show_recipe(recipe_url):
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
+        rating_query = Rating.query.filter_by(recipe_id = recipe_display.recipe_id).filter_by(user_id=user.user_id).all()
+        score= rating_query[0].rating_score
         return render_template('recipe.html', recipe_title=recipe_title, 
                             recipe_ingredients=recipe_ingredients,
                             recipe_directions=recipe_directions,
-                            user=user, recipe_display=recipe_display)
+                            user=user, recipe_display=recipe_display, score=score)
     else:
         return render_template('recipe.html', recipe_title=recipe_title, 
                                 recipe_ingredients=recipe_ingredients,
@@ -180,15 +184,17 @@ def signup():
     email = request.form.get("email")
     password = request.form.get("Password")
 
+    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
     user = User.query.filter(User.email == email).all()
 
     if user:
         flash("You're already signed up, please login.")
     else:
-        user = User(name=name, email=email, password=password)
+        user = User(name=name, email=email, password=hashed)
         db.session.add(user)
         db.session.commit()
-        flash("Thanks for signing up %d!") % name
+        flash("Thanks for signing up! Please login")
 
     return redirect("/login")
 
@@ -202,11 +208,18 @@ def show_login():
 @app.route('/login', methods=["POST"])
 def login():
     session["user_email"] = request.form.get("email")
-    flash("Logged in as "+session["user_email"])
-    user = User.query.filter(User.email == session["user_email"]).all()
-    user_id = user[0].user_id
-    session["user_id"] = user_id
-    return redirect('/%d' %user_id)
+    password = request.form.get("Password")
+    user = User.query.filter(User.email == session["user_email"]).one()
+    to_check = user.password.encode('utf-8')
+    if bcrypt.checkpw(password.encode('utf-8'), to_check):
+        flash("Logged in as "+session["user_email"])
+        user_id = user.user_id
+        session["user_id"] = user_id
+        return redirect('/%d' %user_id)
+    else:
+        flash("Username or Password do not match our records")
+        del session["user_email"]
+        return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -220,7 +233,8 @@ def show_profile(user_id):
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).first()
-        name = user.name            
+        name = user.name 
+        print session            
         return render_template('userprofile.html', name=name, user=user)
     else:
         return redirect('/')
