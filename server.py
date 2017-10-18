@@ -153,17 +153,20 @@ def show_random(category):
     ingredients1 = recipe1.recipe_ingredients.split(",")
     ingredients2 = recipe2.recipe_ingredients.split(",")
     ingredients3 = recipe3.recipe_ingredients.split(",")
+    url1 =recipe1.recipe_url
+    url2 = recipe2.recipe_url
+    url3 = recipe3.recipe_url
 
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
                             recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
-                            ingredients3=ingredients3, user=user)
+                            ingredients3=ingredients3, user=user, url1=url1, url2=url2, url3=url3)
     else:
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
                             recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
-                            ingredients3=ingredients3)
+                            ingredients3=ingredients3, url1=url1, url2=url2, url3=url3)
 
 
 @app.route('/signup', methods=["GET"])
