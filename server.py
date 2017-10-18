@@ -140,24 +140,30 @@ def show_taggedrecipes(category):
         recipes = set(recipes)
         more_recipes = recipes & with_restrictions
         restrictions = user.restrictions.split(",") 
-        # [gf, veg, dairy]  
-        # first = restrictions[1] 
-        # print first, "This is your restriction"
-        # tid = Tag.query.filter_by(category= first).one()
-        # more_recipes = tid.recipe
-        # with_restrictions = []
-        # for recipe in more_recipes:
-        #     if recipe in recipes:
-        #         with_restrictions.append(recipe)
-
-                
-        # with_restrictions = db.session.query(Recipe).join(TagRecipes).filter(TagRecipes.recipe_id == Recipe.recipe_id).join(Tag).filter(tid.tag_id == TagRecipes.tag_id).filter((Tag.category == tag.category),and_(Tag.category == tid.category)).all()
-       
-
         return render_template('taggedrecipe.html', tag=tag, recipes=recipes, user=user,
                                 restrictions=restrictions, more_recipes=more_recipes)
     else:
         return render_template('taggedrecipe.html', tag=tag, recipes=recipes)
+
+@app.route('/<category>/random/recipes')
+def show_random(category):
+    tag = Tag.query.filter_by(category=category).one()
+    recipes = tag.recipe
+    recipe1, recipe2, recipe3 = random.sample(recipes, 3)
+    ingredients1 = recipe1.recipe_ingredients.split(",")
+    ingredients2 = recipe2.recipe_ingredients.split(",")
+    ingredients3 = recipe3.recipe_ingredients.split(",")
+
+    if "user_email" in session:
+        email = session["user_email"]
+        user = User.query.filter_by(email = email).one()
+        return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
+                            recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
+                            ingredients3=ingredients3, user=user)
+    else:
+        return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
+                            recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
+                            ingredients3=ingredients3)
 
 
 @app.route('/signup', methods=["GET"])
