@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import random
 from SQLAlchemy import and_
 import bcrypt
+from helper import get_restriction_recipes
 
 
 app = Flask(__name__)
@@ -161,21 +162,29 @@ def show_taggedrecipes(category):
 def show_random(category):
     tag = Tag.query.filter_by(category=category).one()
     recipes = tag.recipe
-    recipe1, recipe2, recipe3 = random.sample(recipes, 3)
-    ingredients1 = recipe1.recipe_ingredients.split(",")
-    ingredients2 = recipe2.recipe_ingredients.split(",")
-    ingredients3 = recipe3.recipe_ingredients.split(",")
-    url1 =recipe1.recipe_url
-    url2 = recipe2.recipe_url
-    url3 = recipe3.recipe_url
+    def get_random_recipes(recipes):
+        recipe1, recipe2, recipe3 = random.sample(recipes, 3)
+        ingredients1 = recipe1.recipe_ingredients.split(",")
+        ingredients2 = recipe2.recipe_ingredients.split(",")
+        ingredients3 = recipe3.recipe_ingredients.split(",")
+        url1 =recipe1.recipe_url
+        url2 = recipe2.recipe_url
+        url3 = recipe3.recipe_url
+        return recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3
 
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
+        with_restrictions = get_restriction_recipes(user)
+        with_restrictions = set(with_restrictions)
+        recipes = set(recipes)
+        more_recipes = recipes & with_restrictions
+        recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(more_recipes)
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
                             recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
                             ingredients3=ingredients3, user=user, url1=url1, url2=url2, url3=url3)
     else:
+        recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(recipes)
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
                             recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
                             ingredients3=ingredients3, url1=url1, url2=url2, url3=url3)
