@@ -75,7 +75,10 @@ def show_recipe(recipe_url):
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
         rating_query = Rating.query.filter_by(recipe_id = recipe_display.recipe_id).filter_by(user_id=user.user_id).all()
-        score= rating_query[0].rating_score
+        if rating_query:
+            score = rating_query[0].rating_score
+        else:
+            score = None
         return render_template('recipe.html', recipe_title=recipe_title, 
                             recipe_ingredients=recipe_ingredients,
                             recipe_directions=recipe_directions,
@@ -129,6 +132,7 @@ def show_taggedrecipes(category):
         with_restrictions = []
         for restriction in restrictions[:-1]:
             restriction = restriction.strip()
+            print restriction
             tid = Tag.query.filter_by(category= restriction).one()
             recipes = tid.recipe 
             for recipe in recipes:
@@ -233,8 +237,7 @@ def show_profile(user_id):
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).first()
-        name = user.name 
-        print session            
+        name = user.name            
         return render_template('userprofile.html', name=name, user=user)
     else:
         return redirect('/')
