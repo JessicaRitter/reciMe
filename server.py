@@ -179,7 +179,10 @@ def show_random(category):
         with_restrictions = set(with_restrictions)
         recipes = set(recipes)
         more_recipes = recipes & with_restrictions
-        recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(more_recipes)
+        try:
+            recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(more_recipes)
+        except ValueError:
+            recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(recipes)
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
                             recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
                             ingredients3=ingredients3, user=user, url1=url1, url2=url2, url3=url3)
