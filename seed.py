@@ -60,12 +60,12 @@ def load_recipe():
             recipe_url,recipe_title, recipe_source,recipe_ingredients, recipe_directions,tags = recipe.split("|")
             recipe = Recipe(recipe_url=recipe_url,recipe_title=recipe_title,recipe_source=recipe_source,
                             recipe_ingredients=recipe_ingredients,recipe_directions=recipe_directions)
-            pdb.set_trace()
+            # pdb.set_trace()
         except:
             print recipe.split("|")
         # break
         db.session.add(recipe)
-    db.session.commit()
+        db.session.commit()
 
 def load_tagrecipe():
     file = open('datafile.txt')
@@ -83,7 +83,7 @@ def load_tagrecipe():
             tag_id = tag_db.tag_id
             tagrecipe = TagRecipes(tag_id=tag_id, recipe_id=recipe_id)
             db.session.add(tagrecipe)
-            db.session.commit()
+        db.session.commit()
 
                                     
 
@@ -100,6 +100,7 @@ if __name__ == "__main__":
 
     # create tables
     # db.create_all()
+    
 
     # load_tags()
 # 

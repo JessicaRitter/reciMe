@@ -136,7 +136,7 @@ def show_taggedrecipes(category):
             tid = Tag.query.filter_by(category= restriction).one()
             recipes = tid.recipe 
             for recipe in recipes:
-                with_restrictions.append(recipe.recipe_title)
+                with_restrictions.append(recipe)
             # with_restrictions.append(recipes)
         return with_restrictions
 
@@ -146,7 +146,11 @@ def show_taggedrecipes(category):
         with_restrictions = get_restriction_recipes(user)
         with_restrictions = set(with_restrictions)
         recipes = set(recipes)
+        # print recipes
         more_recipes = recipes & with_restrictions
+        # print with_restrictions
+        # print recipes
+        print more_recipes
         restrictions = user.restrictions.split(",") 
         return render_template('taggedrecipe.html', tag=tag, recipes=recipes, user=user,
                                 restrictions=restrictions, more_recipes=more_recipes)
