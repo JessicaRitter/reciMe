@@ -253,8 +253,10 @@ def show_profile(user_id):
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).first()
-        name = user.name            
-        return render_template('userprofile.html', name=name, user=user)
+        name = user.name  
+        ratings = Rating.query.filter_by(user_id=user.user_id).all()   
+        print ratings      
+        return render_template('userprofile.html', name=name, user=user,ratings=ratings)
     else:
         return redirect('/')
 

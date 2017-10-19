@@ -8,6 +8,15 @@
             {{ user.restrictions }}
             <button class="btn btn-primary"><a href="/add-dietary-restrictions">Click to change dietary restrictions</a></button>
         </div>
+        <div class="col-lg-5">
+            <p>Recipes You've rated</p>
+            <ul>
+                {% for rating in ratings %}
+
+                    <li><a href="/recipes{{rating.recipe.recipe_url}}">{{rating.recipe.recipe_title}}</a>, {{rating.rating_score}}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 <button class="btn btn-primary"><a href="/logout">Logout</a></button>  
 </div>
