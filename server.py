@@ -115,6 +115,7 @@ def add_rating():
 @app.route('/tags')
 def show_tags():
     tags = Tag.query.all()
+    # categories = tags.category
     
     if "user_email" in session:
         email = session["user_email"]

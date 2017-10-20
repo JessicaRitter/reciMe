@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>hello {{name}}</h1>
+    <h1 align="center">Hello {{name}}</h1>
     <div class="row">
         <div class="col-lg-7">
             <p> Your dietary restrictions: </p>
@@ -9,7 +9,7 @@
             <button class="btn btn-primary"><a href="/add-dietary-restrictions">Click to change dietary restrictions</a></button>
         </div>
         <div class="col-lg-5">
-            <p>Recipes You've rated</p>
+            <p>Recipes you've rated</p>
             <ul>
                 {% for rating in ratings %}
 
