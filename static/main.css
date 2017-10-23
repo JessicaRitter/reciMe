@@ -3,3 +3,35 @@
 .btn-primary a {
     color:#ffffff;
 }
+
+
+.show-button div {
+    height:350px;
+    width:350px;
+    display: inline-block;
+    position: relative;
+}
+
+.show-button img{
+    /*height:80%;*/
+    width:100%;
+    display: block;
+}
+
+.caption {
+    position: absolute;
+    top: 50%;
+    left: 17%;
+    transform: translate( -50%, -10% );
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    height: 30px;
+}
+
+.top-row,
+.bottom-row {
+    display: inline-block;
+    height:400px;
+}

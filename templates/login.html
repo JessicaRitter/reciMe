@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style type="text/css">
+    body {
+    background-image: url("./static/gyoza.jpg")
+    }
+</style>
 <div class="container">
     <div class="row">
        <div class="col-lg-6">
         <h1>Login</h1>
+        <br>
         <form action="/login" method="POST">
             <p>Email:</p>
-            <input type="text" name="email" id="email"></input>
+            <input type="text" name="email" id="email"></input><br>
+            <br>
             <p>Password:</p>
             <input type="Password" name="Password" id="Password"></input>
             <input type="submit">            

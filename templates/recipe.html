@@ -27,7 +27,7 @@
             </ol>
         </div>
         <div class="col-lg-3"> 
-            {% if "user_email" in session and score > 1 %}
+            {% if "user_email" in session and score >= 1 %}
                 <h3> You've rated this recipe {{score}} out of 5 </h3>
 
             {% elif "user_email" in session and score < 1 %}

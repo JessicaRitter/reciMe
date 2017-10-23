@@ -1,48 +1,113 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container"> 
-    <row>
-        <h1>Show me all options</h1>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Breakfast/recipes">Breakfast</a></button>
+    <row class="top-row">
+        <h1 align="center">Just give me three options</h1>
+        
+            <div class="col-lg-4 col-md-6 col-sm-12 show-button" id="breakfast-div">
+                <row>
+                    <a href="/Breakfast/random/recipes">
+                        <img src="/static/breakfast2.jpg">
+                    </a>
+                </row>
+                <div class="caption"><p>Breakfast</p> </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 show-button" id="lunch-div">
+                <row>
+                    <a href="/Lunch/random/recipes">
+                        <img src="/static/sandwich.jpg">
+                    </a>
+                </row>
+                <div class="caption"><p>Lunch</p> </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 show-button" id="brunch-div">
+                <row>
+                    <a href="/Brunch/random/recipes">
+                        <img src="/static/brunch.jpg">
+                    </a>
+                </row>
+                <div class="caption"><p>Brunch</p> </div>
+            </div>
+    </row>
+    <row class="top-row">
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button" id="dinner-div">
+            <row>
+                <a href="/Dinner/random/recipes">
+                    <img src="/static/dinner2.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Dinner</p> </div>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Brunch/recipes">Brunch</a></button>
+         <div class="col-lg-4 col-md-6 col-sm-12 show-button" id="cocktail-div">
+            <row>
+                <a href="/Cocktail/random/recipes">
+                    <img src="/static/cocktail2.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Drinks</p></div>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Lunch/recipes">Lunch</a></button>
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button" id="dessert-div">
+            <row>
+                <a href="/Dessert/random/recipes">
+                    <img src="/static/dessert.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Dessert</p> </div>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Dinner/recipes">Dinner</a></button>
+    </row>
+    <row class="bottom-row">
+        <h1 align="center">Show me everything</h1>
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button">
+            <row>
+                <a href="/Breakfast/recipes">
+                    <img src="/static/breakfast2.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Breakfast</p> </div>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Dessert/recipes">Dessert</a></button>
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button">
+            <row>
+                <a href="/Brunch/recipes">
+                    <img src="/static/brunch.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Brunch</p> </div>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Cocktail/recipes">Drinks</a></button>
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button">
+            <row>
+                <a href="/Lunch/recipes">
+                    <img src="/static/sandwich.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Lunch</p> </div>
+        </div>
+    </row> 
+    <row class="bottom-row">  
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button">
+            <row>
+                <a href="/Dinner/recipes">
+                    <img src="/static/dinner2.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Dinner</p> </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button">
+            <row>
+                <a href="/Dessert/recipes">
+                    <img src="/static/dessert.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Dessert</p> </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 show-button">
+            <row>
+                <a href="/Cocktail/recipes">
+                    <img src="/static/cocktail2.jpg">
+                </a>
+            </row>
+            <div class="caption"><p>Drinks</p> </div>
         </div>
 
-    </row>
-    <row>
-        <h1>Just give me three options</h1>
-         <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Cocktail/random/recipes">Cocktail</a></button>
-        </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Dessert/random/recipes">Dessert</a></button>
-        </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Dinner/random/recipes">Dinner</a></button>
-        </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Lunch/random/recipes">Lunch</a></button>
-        </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Brunch/random/recipes">Brunch</a></button>
-        </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary"><a href="/Breakfast/random/recipes">Breakfast</a></button>
-        </div>
     </row>
 </div>
 {% endblock %}
