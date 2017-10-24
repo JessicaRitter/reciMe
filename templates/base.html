@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Recime</title>
+  <title>ReciMe</title>
   <link rel="stylesheet" type="text/css" href="/static/jqcloud.css" />
   <script src="http://code.jquery.com/jquery.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Recime</a>
+      <a class="navbar-brand" href="/">ReciMe</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,7 +27,7 @@
         <li><a href="/tags">Tags</a></li>
         <li><a href="/">Home</a></li>
         {% if "user_email" in session %}
-            <li><a href="/{{user.user_id}}">User profile</a></li>
+            <li><a href="/{{user.user_id}}">User Profile</a></li>
             <li><a href="/logout">Logout</a></li>
         {% elif "user_email" not in session %}
           <li><a href="/login">Login</a></li>

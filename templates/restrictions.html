@@ -1,25 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
+<style type="text/css">
+    body {
+    background-image: url("./static/cookies.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+    
+</style>
 <div class="container">
-    <h1>Dietary Restrictions</h1>
-    <form action="/add-dietary-restrictions" method="POST">
-            <input type="checkbox" name="restriction" value="Vegan">
-                 Vegan
-            </input><br>
-            <input type="checkbox" name="restriction" value="Vegetarian">
-                Vegetarian
-            </input><br>
-            <input type="checkbox" name="restriction" value="Fish">
-                Pescaterian
-            </input><br>
-            <input type="checkbox" name="restriction" value="Gluten Free">
-                Gluten-Free
-            </input><br>
-            <input type="checkbox" name="restriction" value="Kosher">
-                Kosher
-            </input><br>
-            
-            <input type="submit">            
-        </form>
+    <div class="restriction-form">
+            <h1>Dietary Restrictions</h1>
+        <form action="/add-dietary-restrictions" method="POST">
+                <input type="checkbox" name="restriction" value="Vegan">
+                     Vegan
+                </input><br>
+                <br>
+                <input type="checkbox" name="restriction" value="Vegetarian">
+                    Vegetarian
+                </input><br>
+                <br>
+                <input type="checkbox" name="restriction" value="Fish">
+                    Pescaterian
+                </input><br>
+                <br>
+                <input type="checkbox" name="restriction" value="Gluten Free">
+                    Gluten-Free
+                </input><br>
+                <br>
+                <input type="checkbox" name="restriction" value="Kosher">
+                    Kosher
+                </input><br>
+                <br>
+                
+                <button class="btn btn-primary" type="submit">Submit</button>            
+            </form>
+    </div>
+
 </div>
 {% endblock %}

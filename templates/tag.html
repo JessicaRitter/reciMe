@@ -654,13 +654,29 @@
         
     </script>
     <div id="wordcloud" style="width: 100%; height: 350px;"></div>
-    <div class="col-lg-6">
+    <button class="btn btn-primary" id="tags-expand">See all tags</button>
+    <script type="text/javascript">
+      
+        $("#tags-expand").click(function () {
+            if($("#tag-toggle").css("display") == "none"){
+            $("#tag-toggle").toggle();
+            $("#tags-expand").html("Hide tags");
+            } else {
+                $("#tag-toggle").toggle();
+                $("#tags-expand").html("See all tags");
+            };
+        });
+      
+
+    </script>
+    <div class="col-lg-6" id="tag-toggle">
+      
         <ul>
            {% for tag in tags %}
                 <li><a href="/{{tag.category}}/recipes"> {{ tag.category }}</a></li>
             {% endfor %}
         </ul>
-       </div>
+       
     </div>
 
 </div>

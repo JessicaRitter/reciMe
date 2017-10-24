@@ -3,12 +3,15 @@
 {% block content %}
 <style type="text/css">
     body {
-    background-image: url("./static/gyoza.jpg")
+    background-image: url("./static/cookies.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
     }
 </style>
 <div class="container">
     <div class="row">
-       <div class="col-lg-6">
+       <div class="col-lg-3"></div>
+       <div class="col-lg-6 login">
         <h1>Login</h1>
         <br>
         <form action="/login" method="POST">
@@ -16,10 +19,12 @@
             <input type="text" name="email" id="email"></input><br>
             <br>
             <p>Password:</p>
-            <input type="Password" name="Password" id="Password"></input>
-            <input type="submit">            
+            <input type="Password" name="Password" id="Password"></input><br>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>            
         </form>
        </div>
+       <div class="col-lg-3"></div>
     </div>
 
 </div>

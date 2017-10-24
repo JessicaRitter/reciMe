@@ -2,20 +2,28 @@
 {% block content %}
 <style type="text/css">
     body {
-    background-image: url("./static/cupcakes.jpg");
+    background-image: url("./static/cookies.jpg");
     background-repeat: no-repeat;
+    background-size: cover;
     }
+    
 </style>
 <div class="container">
     <h1 align="center">Hello {{name}}</h1>
     <div class="row">
-        <div class="col-lg-7">
-            <p> Your dietary restrictions: </p>
-            {{ user.restrictions }}
-            <button class="btn btn-primary"><a href="/add-dietary-restrictions">Click to change dietary restrictions</a></button>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3 restrictions">
+            <h3> Your dietary restrictions: </h3>
+            {% if user.restrictions >= 1 %}
+                {{ user.restrictions[:-1] }}
+                <br>
+            <a href="/add-dietary-restrictions"><button class="btn btn-primary">change dietary restrictions</button></a>
+            {% else %}
+                <a href="/add-dietary-restrictions"><button class="btn btn-primary">Add dietary restrictions</button></a>
+            {% endif %}
         </div>
-        <div class="col-lg-5">
-            <p>Recipes you've rated</p>
+        <div class="col-lg-3 ratings">
+            <h3>Recipes you've rated</h3>
             <ul>
                 {% for rating in ratings %}
 
@@ -23,7 +31,8 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="col-lg-3"></div>
     </div>
-<button class="btn btn-primary"><a href="/logout">Logout</a></button>  
+<!-- <button class="btn btn-primary"><a href="/logout">Logout</a></button>   -->
 </div>
 {%endblock%}
