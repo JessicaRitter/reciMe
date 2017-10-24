@@ -176,17 +176,24 @@ def show_random(category):
     if "user_email" in session:
         email = session["user_email"]
         user = User.query.filter_by(email = email).one()
-        with_restrictions = get_restriction_recipes(user)
-        with_restrictions = set(with_restrictions)
-        recipes = set(recipes)
-        more_recipes = recipes & with_restrictions
-        try:
-            recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(more_recipes)
-        except ValueError:
+        if user.restrictions >= 1:
+            with_restrictions = get_restriction_recipes(user)
+            with_restrictions = set(with_restrictions)
+            recipes = set(recipes)
+            more_recipes = recipes & with_restrictions
+            try:
+                recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(more_recipes)
+            except ValueError:
+                recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(recipes)
+            return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
+                                recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
+                                ingredients3=ingredients3, user=user, url1=url1, url2=url2, url3=url3)
+        else:
             recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(recipes)
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
                             recipe3=recipe3, ingredients1=ingredients1, ingredients2=ingredients2,
-                            ingredients3=ingredients3, user=user, url1=url1, url2=url2, url3=url3)
+                            ingredients3=ingredients3, url1=url1, url2=url2, url3=url3, user=user)
+
     else:
         recipe1,recipe2,recipe3,ingredients1,ingredients2,ingredients3,url1,url2,url3 = get_random_recipes(recipes)
         return render_template("threerecipes.html", recipe1=recipe1, recipe2=recipe2,
