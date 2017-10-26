@@ -40,9 +40,13 @@
 {% for message in get_flashed_messages() %}
 <p class="flashed-messages"> {{message}} <p>
 {% endfor %}
+
 {% block content %}
 
 {% endblock %}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<footer class="navbar navbar-fixed-bottom text-center">
+  <p>Made By <a href="https://twitter.com/jessicalritter"><img src="https://www.wardandpartners.co.uk/_images/icons/twitter-icon-grey.svg" height="18">Jess</a></i></p> 
+</footer>
 </body>
 </html>
