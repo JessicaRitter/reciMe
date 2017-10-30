@@ -12,29 +12,24 @@ ReciMe aims to help indecisive foodies that want excellent recipes that take int
 __Frontend:__ HTML5, CSS, jQuery, Javascript, Ajax, Jinja2, Bootstrap <br/>
 __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy, Beautiful Soup, bcrypt <br/>
 __External_Sources:__ jQCloud,Unsplash, hhursev/recipe-scraper* (*edited/modified for this project) <br/>
-
 ## <a name="features"></a>Features
 click on the meal you want to see recipes for:
+![View three options](/static/three_options.gif)
 <br><br><br>
-
 click to see all recipes by meal:
+![View three options](/static/all_recipes.gif)
 <br><br><br>
-
 login to create user:
+![View three options](/static/signup_signin.gif)
 <br><br><br>
-
-select dietary restrictions:
-<br><br><br>
-
 rate recipes:
+![View three options](/static/rate_recipe.gif)
 <br><br><br>
-
 see recipes by all tags:
+![View three options](/static/tag_cloud.gif)
 <br><br><br>
 ## <a name="installation"></a>Setup/Installation 
-
 ####Requirements:
-
 - PostgreSQL
 - Python 2.7
 
