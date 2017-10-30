@@ -1,6 +1,6 @@
 
 /env
 *.pyc
-.DS_Store
-.sh
+*.DS_Store
+*.sh
 

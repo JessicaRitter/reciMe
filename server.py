@@ -5,12 +5,13 @@ import random
 from SQLAlchemy import and_
 import bcrypt
 from helper import get_restriction_recipes
+import os
 
 
 app = Flask(__name__)
 
 
-app.secret_key = "jessisthebest"
+app.secret_key = os.environ.get("APP_KEY")
 
 
 @app.route('/')
